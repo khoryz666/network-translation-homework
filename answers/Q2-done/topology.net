@@ -1,0 +1,64 @@
+autostart = False
+version = 0.8.3.1
+[qemu 127.0.0.1:10525]
+    workingdir = working
+    udp = 40000
+    [[QemuDevice]]
+        image = C:\Users\2305662\Desktop\learn-datacom\network-translation\required-images\linux-microcore-3.8.2.img
+        ram = 128
+        netcard = e1000
+    [[QEMU QEMU4]]
+        e0 = SW2 2
+        x = 199.5
+        y = 84.5
+        z = 1.0
+    [[QEMU QEMU1]]
+        e0 = SW1 1
+        x = -594.5
+        y = -184.5
+        z = 1.0
+    [[QEMU QEMU3]]
+        e0 = SW2 1
+        x = 197.5
+        y = -171.5
+        z = 1.0
+    [[QEMU QEMU2]]
+        e0 = SW1 2
+        x = -573.5
+        y = 85.5
+        z = 1.0
+[localhost:7200]
+    workingdir = working
+    udp = 10000
+    [[3745]]
+        image = C:\Users\2305662\Desktop\learn-datacom\network-translation\required-images\router-image-c3745-advipservicesk9-mz.124-25d.image
+        ram = 256
+        idlepc = 0x6023f5d0
+        sparsemem = True
+    [[ROUTER R1]]
+        model = 3745
+        console = 2001
+        aux = 2501
+        cnfg = configs\R1.cfg
+        f0/0 = SW1 3
+        f0/1 = SW2 3
+        x = -177.0
+        y = -52.0
+        z = 1.0
+    [[ETHSW SW1]]
+        1 = access 1 QEMU1 e0
+        2 = access 1 QEMU2 e0
+        3 = access 1 R1 f0/0
+        x = -423.5
+        y = -55.0
+        z = 1.0
+    [[ETHSW SW2]]
+        1 = access 1 QEMU3 e0
+        2 = access 1 QEMU4 e0
+        3 = access 1 R1 f0/1
+        x = 27.5
+        y = -46.0
+        z = 1.0
+[GNS3-DATA]
+    configs = configs
+    workdir = working
